@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <title>Dual Connected Links Demo</title>
     <script type="text/javascript" src='../../dist/vivagraph.js'></script>
@@ -11,13 +12,16 @@
                 });
 
             graph.addLink(1, 2, 'Buy');
-            graph.addLink(1, 2, 'Sell');
+            graph.addLink(1, 3, 'Sell');
+            graph.addLink(3, 4, 'Sell');
+            graph.addLink(4, 2, 'Sell');
+            graph.addLink(1, 3, 'Sell');
 
-            graphics.link(function(link){
+            graphics.link(function(link) {
                 var isBuy = (link.data === 'Buy'),
                     ui = Viva.Graph.svg('path')
-                           .attr('stroke', isBuy ? 'red' : 'blue')
-                           .attr('fill', 'none');
+                    .attr('stroke', isBuy ? 'red' : 'blue')
+                    .attr('fill', 'none');
 
                 ui.isBuy = isBuy; // remember for future.
 
@@ -25,9 +29,9 @@
             }).placeLink(function(linkUI, fromPos, toPos) {
                 // linkUI - is the object returend from link() callback above.
                 var ry = linkUI.isBuy ? 10 : 0,
-                // using arc command: http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
+                    // using arc command: http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
                     data = 'M' + fromPos.x + ',' + fromPos.y +
-                           ' A 10,' + ry + ',-30,0,1,' + toPos.x + ',' + toPos.y;
+                    ' A 10,' + ry + ',-30,0,1,' + toPos.x + ',' + toPos.y;
 
                 // 'Path data' (http://www.w3.org/TR/SVG/paths.html#DAttribute )
                 // is a common way of rendering paths in SVG:
@@ -38,10 +42,17 @@
         }
     </script>
     <style type="text/css">
-        html, body, svg { width: 100%; height: 100%;}
+        html,
+        body,
+        svg {
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
+
 <body onload='main()'>
 
 </body>
+
 </html>
